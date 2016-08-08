@@ -1,8 +1,8 @@
 #!/bin/bash
 export PATH=${PATH}:/usr/bin:/usr/local/bin:/bin
 # Get timestamp
-: ${BACKUP_SUFFIX:=.$(date +"%Y%m%d-%H%M%S")}
-readonly tarball=${BACKUP_NAME}_${BACKUP_SUFFIX}.tar.gz
+: ${BACKUP_SUFFIX:=$(date +"%Y%m%d-%H%M%S")}
+readonly tarball=${BACKUP_NAME}-${BACKUP_SUFFIX}.tar.gz
 
 # Create a gzip compressed tarball with the volume(s)
 tar czf ${tarball} ${BACKUP_TAR_OPTION} ${PATHS_TO_BACKUP}
@@ -15,8 +15,7 @@ then
 fi
 
 # Upload the backup to oss with timestamp
-aws s3 --region $AWS_DEFAULT_REGION cp $tarball s3://$S3_BUCKET_NAME/$tarball
-aliyuncli oss MultiUpload ${tarball} $BACKUP_BUCKET_DIR --thread_num 5
+aliyuncli oss MultiUpload ${tarball} oss://${OSS_BUCKET}/ --thread_num 5
 
 # Clean up
-rm $tarball
+rm ${tarball}

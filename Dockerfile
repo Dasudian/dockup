@@ -6,7 +6,7 @@ RUN apt-get update && \
   pip install aliyuncli aliyun-python-sdk-oss
   
 ENV STORAGE="OSS" \
-  OSS_BUCKET="xxx-buckups" \
+  OSS_BUCKET="xxx-backups" \
   OSS_ACCESS_ID="**DefineMe**" \
   OSS_ACCESS_KEY="**DefineMe**" \
   OSS_HOST="oss-cn-shenzhen.aliyuncs.com" \
